@@ -1,15 +1,11 @@
 <script setup lang="ts">
-//import { isAuthenticated as isAuthenticatedRef } from '../components/store.js';
-import { computed } from 'vue';
 
-
-const isAuthenticated = computed(() => isAuthenticatedRef.value);
 </script>
 
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-md">
-      <!-- Brand or logo (optional) -->
+
       <router-link class="navbar-brand" to="/">MyBrand</router-link>
 
       <!-- Toggler/hamburger button visible on small screens -->
@@ -27,19 +23,9 @@ const isAuthenticated = computed(() => isAuthenticatedRef.value);
             </router-link>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Log In
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="loginDropdown">
-              <li>
-                <router-link to="/profile" class="dropdown-item">Users</router-link>
-              </li>
-              <li>
-                <router-link to="/settings" class="dropdown-item">Volunteers</router-link>
-              </li>
-            </ul>
+          <li class="nav-item">
+            <router-link to="/auth" class="nav-link" active-class="active" aria-current="page">Log In Or
+              Register</router-link>
           </li>
 
           <li class="nav-item">
@@ -67,6 +53,11 @@ const isAuthenticated = computed(() => isAuthenticatedRef.value);
           <li class="nav-item">
             <router-link to="/about" class="nav-link" active-class="active">
               About Us
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/support" class="nav-link" active-class="active">
+              Support
             </router-link>
           </li>
         </ul>
