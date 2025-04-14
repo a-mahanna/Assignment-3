@@ -1,7 +1,7 @@
 <template>
   <div class="container py-5">
-    <h1>Volunteer Dashboard</h1>
-    <p>Welcome, {{ fullname }}! Here you can manage users, content, and reports.</p>
+    <UserAvatar :firstName="firstName" :lastName="lastName" :avatarUrl="avatar" />
+    <h2 class="mt-4">Welcome {{ fullName }} to your dashboard!</h2>
   </div>
 </template>
 
@@ -9,14 +9,17 @@
 import { ref, onMounted } from 'vue'
 import { auth } from '@/firebase'
 import { getUserProfile } from '@/utils/getUserProfile'
+import UserAvatar from '@/components/UserAvatar.vue'
 
 const fullName = ref('')
+const firstName = ref('')
+const lastName = ref('')
+const avatar = ref('')
 
 onMounted(async () => {
-  const user = auth.currentUser
-  if (user) {
-    const profile = await getUserProfile(user.uid)
-    fullName.value = `${profile.firstName} ${profile.lastName}`
-  }
+  const profile = await getUserProfile(auth.currentUser.uid)
+  firstName.value = profile.firstName
+  lastName.value = profile.lastName
+  avatar.value = profile.avatar
 })
 </script>

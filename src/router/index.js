@@ -29,21 +29,25 @@ const router = createRouter({
       path: '/community',
       name: 'community',
       component: Community,
+      meta: { requiresAuth: true },
     },
     {
       path: '/education',
       name: 'education',
       component: EducationResources,
+      meta: { requiresAuth: true },
     },
     {
       path: '/healthservices',
       name: 'healthservices',
       component: HealthServices,
+      meta: { requiresAuth: true },
     },
     {
       path: '/legalassistance',
       name: 'legalassistance',
       component: LegalAssistance,
+      meta: { requiresAuth: true },
     },
     {
       path: '/support',
@@ -59,11 +63,18 @@ const router = createRouter({
       path: '/volunteer-dashboard',
       name: 'volunteer-dashboard',
       component: VolunteerDashboard,
+      meta: { requiresAuth: true, role: 'admin' },
     },
     {
       path: '/user-dashboard',
       name: 'user-dashboard',
       component: UserDashboard,
+      meta: { requiresAuth: true, role: 'user' },
+    },
+    {
+      path: '/profile',
+      component: () => import('@/views/UserProfile.vue'),
+      meta: { requiresAuth: true },
     },
   ],
 })
@@ -71,18 +82,25 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const currentUser = auth.currentUser
 
-  if (to.meta.requiresAuth && !currentUser) {
-    next('/auth')
-  } else if (to.meta.requiresAuth && currentUser) {
-    const role = await getUserProfile(currentUser.uid)
-    if (role === to.meta.role) {
-      next()
-    } else {
-      next('/auth')
-    }
-  } else {
-    next()
+  const publicPaths = ['/auth', '/about', '/support']
+  if (publicPaths.includes(to.path)) {
+    return next()
   }
+
+  if (to.meta.requiresAuth && !currentUser) {
+    return next('/auth')
+  }
+
+  if (to.meta.requiresAuth && currentUser && to.meta.role) {
+    const profile = await getUserProfile(currentUser.uid)
+    if (profile && profile.role === to.meta.role) {
+      return next()
+    } else {
+      return next('/auth')
+    }
+  }
+
+  return next()
 })
 
 export default router
