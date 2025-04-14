@@ -1,25 +1,24 @@
 <template>
   <div class="container py-5">
-    <UserAvatar :firstName="firstName" :lastName="lastName" :avatarUrl="avatar" />
-    <h2 class="mt-4">Welcome {{ fullName }} to your dashboard!</h2>
+    <h2 class="mb-4">Volunteer Dashboard</h2>
+    <section class="mb-5">
+      <TaskManagementDashboard />
+    </section>
+    <section class="mb-5">
+      <VolunteerScheduling />
+    </section>
+    <section class="mb-5">
+      <AnalyticsReporting />
+    </section>
+    <section class="mb-5">
+      <ClientsSection />
+    </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { auth } from '@/firebase'
-import { getUserProfile } from '@/utils/getUserProfile'
-import UserAvatar from '@/components/UserAvatar.vue'
-
-const fullName = ref('')
-const firstName = ref('')
-const lastName = ref('')
-const avatar = ref('')
-
-onMounted(async () => {
-  const profile = await getUserProfile(auth.currentUser.uid)
-  firstName.value = profile.firstName
-  lastName.value = profile.lastName
-  avatar.value = profile.avatar
-})
+import TaskManagementDashboard from '@/components/TaskManagementDashboard.vue'
+import VolunteerScheduling from '@/components/VolunteerScheduling.vue'
+import AnalyticsReporting from '@/components/AnalyticsReporting.vue'
+import ClientsSection from '@/components/ClientsSection.vue'
 </script>
