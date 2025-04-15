@@ -9,6 +9,7 @@ const isLoggedIn = ref(false)
 const firstName = ref('')
 const lastName = ref('')
 const avatarUrl = ref('')
+const role = ref('')
 const router = useRouter()
 
 onMounted(() => {
@@ -19,8 +20,10 @@ onMounted(() => {
       firstName.value = profile.firstName || ''
       lastName.value = profile.lastName || ''
       avatarUrl.value = profile.avatar || ''
+      role.value = profile.role || ''
     } else {
       isLoggedIn.value = false
+      role.value = ''
     }
   })
 })
@@ -33,53 +36,58 @@ const logout = async () => {
 const initials = computed(() =>
   `${firstName.value.charAt(0)}${lastName.value.charAt(0)}`.toUpperCase()
 )
+
+const dashboardLink = computed(() => (role.value === 'admin' ? '/volunteer-dashboard' : '/user-dashboard'))
 </script>
 
 <template>
   <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-md">
       <router-link class="navbar-brand" to="/">MyBrand</router-link>
-
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
           <li class="nav-item">
             <router-link to="/" class="nav-link" active-class="active">Home</router-link>
           </li>
-
           <li class="nav-item">
             <router-link to="/community" class="nav-link" active-class="active">Community</router-link>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               Resources
             </a>
             <ul class="dropdown-menu" aria-labelledby="resourcesDropdown">
-              <li><router-link to="/healthservices" class="dropdown-item">Health Service</router-link></li>
-              <li><router-link to="/legalassistance" class="dropdown-item">Legal Assistance</router-link></li>
-              <li><router-link to="/education" class="dropdown-item">Education</router-link></li>
+              <li>
+                <router-link to="/healthservices" class="dropdown-item">Health Service</router-link>
+              </li>
+              <li>
+                <router-link to="/legalassistance" class="dropdown-item">Legal Assistance</router-link>
+              </li>
+              <li>
+                <router-link to="/education" class="dropdown-item">Education</router-link>
+              </li>
             </ul>
           </li>
-
           <li class="nav-item">
             <router-link to="/about" class="nav-link" active-class="active">About Us</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/support" class="nav-link" active-class="active">Support</router-link>
           </li>
-
-          <!-- Show only if not logged in -->
+          <!-- Dashboard link visible for logged in users -->
+          <li class="nav-item" v-if="isLoggedIn">
+            <router-link :to="dashboardLink" class="nav-link" active-class="active">Dashboard</router-link>
+          </li>
+          <!-- Log In or Register link for guests -->
           <li class="nav-item" v-if="!isLoggedIn">
             <router-link to="/auth" class="nav-link" active-class="active">Log In or Register</router-link>
           </li>
-
-          <!-- Show only if logged in -->
+          <!-- Profile and Logout for logged in users -->
           <li v-if="isLoggedIn" class="nav-item d-flex align-items-center ms-3 gap-2">
             <router-link to="/profile" class="nav-link p-0" title="View Profile">
               <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"

@@ -17,7 +17,9 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-6">
-            <img src="https://via.placeholder.com/500x350" class="img-fluid rounded" alt="about" />
+            <img
+              src="https://media.istockphoto.com/id/1432208993/photo/portrait-of-father-and-daughter-embracing-at-a-community-center.jpg?s=612x612&w=0&k=20&c=gJlOzGDzHDvIQ1m3r3GcxULhxCclAxPgPQlFKHzmxTk="
+              class="img-fluid rounded" alt="about" />
           </div>
           <div class="col-md-6">
             <h2>About Our Platform</h2>

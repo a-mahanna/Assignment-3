@@ -49,7 +49,7 @@
 
 <script setup>
 const forumPosts = [
-  { id: 1, title: "How to access free health services?", author: "Aisha R.", date: "April 5, 2025" },
+  { id: 1, title: "How to access free health services?", to: "/forum/1", author: "Aisha R.", date: "April 5, 2025" },
   { id: 2, title: "Looking for local support groups", author: "Mahmoud K.", date: "April 7, 2025" },
   { id: 3, title: "Advice on legal assistance", author: "Layla N.", date: "April 10, 2025" }
 ];
