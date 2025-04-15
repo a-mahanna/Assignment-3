@@ -10,15 +10,27 @@ import SupportPage from '../views/SupportPage.vue'
 import LoginRegister from '../views/LoginRegister.vue'
 import VolunteerDashboard from '../views/VolunteerDashboard.vue'
 import UserDashboard from '../views/UserDashboard.vue'
-import { auth } from '@/firebase'
 import { getUserProfile } from '@/utils/getUserProfile'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', name: 'home', component: HomeView },
-    { path: '/about', name: 'about', component: AboutUs },
-    { path: '/community', name: 'community', component: Community, meta: { requiresAuth: true } },
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutUs,
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: Community,
+      meta: { requiresAuth: true },
+    },
     {
       path: '/education',
       name: 'education',

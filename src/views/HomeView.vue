@@ -50,7 +50,7 @@
                 <p class="card-text">
                   Access medical clinics, mental health counseling, and telehealth support tailored to refugee needs.
                 </p>
-                <router-link to="/health-services" class="btn btn-outline-primary btn-sm">Learn More</router-link>
+                <router-link to="/healthservices" class="btn btn-outline-primary btn-sm">Learn More</router-link>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
                 <p class="card-text">
                   Receive guidance on asylum procedures, documentation, and legal rights in your country of residence.
                 </p>
-                <router-link to="/legal-assistance" class="btn btn-outline-primary btn-sm">Learn More</router-link>
+                <router-link to="/legalassistance" class="btn btn-outline-primary btn-sm">Learn More</router-link>
               </div>
             </div>
           </div>
